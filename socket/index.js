@@ -1,4 +1,5 @@
 import { Server } from "socket.io";
+// const server = require('http').createServer();
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -9,10 +10,18 @@ const io = new Server({
   cors: {
     origin:
       process.env.NODE_ENV === "production"
-        ? "https://chatter-rynw.onrender.com/"
+        ? "https://chatter-rynw.onrender.com"
         : "http://localhost:5173",
   },
 });
+// const io = new Server(server, {
+//   cors: {
+//     origin: process.env.NODE_ENV === "production"
+//       ? "https://chatter-rynw.onrender.com"
+//       : "http://localhost:5173",
+//   },
+// });
+
 
 let onlineUsers = [];
 
@@ -55,4 +64,7 @@ io.on("connection", (socket) => {
   });
 });
 
-io.listen(port);
+// io.listen(port);
+io.listen(port, () => {
+  console.log(`Socket.IO server running on port ${port}`);
+});
