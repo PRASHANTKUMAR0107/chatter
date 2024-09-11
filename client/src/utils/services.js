@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const baseUrl = "/api";
+// export const baseUrl = "/api";
+export const baseUrl = "https://chatter-server-rin5.onrender.com/";
 
 export const postRequest = async (url, body) => {
   try {

@@ -28,9 +28,9 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api/users", userRoute);
-app.use("/api/chats", protect, chatRoute);
-app.use("/api/messages", protect, messageRoute);
+app.use("https://chatter-server-rin5.onrender.com//users", userRoute);
+app.use("https://chatter-server-rin5.onrender.com//chats", protect, chatRoute);
+app.use("https://chatter-server-rin5.onrender.com//messages", protect, messageRoute);
 
 if (process.env.NODE_ENV === "production") {
   // const __dirname = path.resolve();
