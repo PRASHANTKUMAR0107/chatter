@@ -33,17 +33,18 @@ app.use("/api/chats", protect, chatRoute);
 app.use("/api/messages", protect, messageRoute);
 
 if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve();
-  const __rootdir = path.join(__dirname, "..");
-  app.use(express.static(path.join(__rootdir, "/client/dist")));
+  // const __dirname = path.resolve();
+  // const __rootdir = path.join(__dirname, "..");
+  // app.use(express.static(path.join(__rootdir, "/client/dist")));
 
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__rootdir, "client", "dist", "index.html"))
-  );
-} else {
+//   app.get("*", (req, res) =>
+//     res.sendFile(path.resolve(__rootdir, "client", "dist", "index.html"))
+//   );
+// } else {
   app.get("/", (req, res) => {
     res.send("API is running....");
   });
+
 }
 
 app.use(notFound);
