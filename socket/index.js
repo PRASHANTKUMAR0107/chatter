@@ -9,7 +9,7 @@ const io = new Server({
   cors: {
     origin:
       process.env.NODE_ENV === "production"
-        ? "https://mern-auth-chat.onrender.com"
+        ? "https://chatter-rynw.onrender.com/"
         : "http://localhost:5173",
   },
 });
