@@ -21,6 +21,7 @@ export const ChatContextProvider = ({ children, user }) => {
   const [allUsers, setAllUsers] = useState([]);
 
   // initial socket
+  //bookmarking
   useEffect(() => {
     const newSocket = io(
       import.meta.env.MODE === "production"
