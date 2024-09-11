@@ -19,33 +19,57 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+// app.use(
+//   cors({
+//     origin:
+//       process.env.NODE_ENV === "production" ? "https://chatter-rynw.onrender.com/" : "http://localhost:5173",
+//   })
+// );
+
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production" ? "https://chatter-rynw.onrender.com/" : "http://localhost:5173",
+    origin: process.env.NODE_ENV === "production"
+      ? "https://chatter-rynw.onrender.com"
+      : "http://localhost:5173",
+    credentials: true,  // Allow credentials (cookies)
   })
 );
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("https://chatter-server-rin5.onrender.com/users", userRoute);
-app.use("https://chatter-server-rin5.onrender.com/chats", protect, chatRoute);
-app.use("https://chatter-server-rin5.onrender.com/messages", protect, messageRoute);
+app.use("/api/users", userRoute);
+app.use("/api/chats", protect, chatRoute);
+app.use("/api/messages", protect, messageRoute);
+
+// if (process.env.NODE_ENV === "production") {
+//   // const __dirname = path.resolve();
+//   // const __rootdir = path.join(__dirname, "..");
+//   // app.use(express.static(path.join(__rootdir, "/client/dist")));
+
+// //   app.get("*", (req, res) =>
+// //     res.sendFile(path.resolve(__rootdir, "client", "dist", "index.html"))
+// //   );
+// // } else {
+//   app.get("/", (req, res) => {
+//     res.send("API is running....");
+//   });
+
+// }
 
 if (process.env.NODE_ENV === "production") {
-  // const __dirname = path.resolve();
-  // const __rootdir = path.join(__dirname, "..");
-  // app.use(express.static(path.join(__rootdir, "/client/dist")));
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, "/client/dist")));
 
-//   app.get("*", (req, res) =>
-//     res.sendFile(path.resolve(__rootdir, "client", "dist", "index.html"))
-//   );
-// } else {
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
+  );
+} else {
   app.get("/", (req, res) => {
     res.send("API is running....");
   });
-
 }
+
 
 app.use(notFound);
 app.use(errorHandler);
