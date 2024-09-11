@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(
   cors({
     origin:
-      process.env.NODE_ENV === "production" ? false : "http://localhost:5173",
+      process.env.NODE_ENV === "production" ? "https://chatter-rynw.onrender.com/" : "http://localhost:5173",
   })
 );
 app.use(express.urlencoded({ extended: true }));
